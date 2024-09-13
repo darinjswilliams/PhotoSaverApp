@@ -12,16 +12,19 @@ struct SaveButton: View {
 
     var body: some View {
         Button(action: {
-
-            isSaved.toggle()
-
+            withAnimation{
+                isSaved.toggle()
+            }
         }, label: {
             Image(systemName: isSaved ? "star.fill" : "star")
                 .imageScale(.large)
-                // Add animation effects here using isSaved
+            // Add animation effects here using isSaved
+                .scaleEffect(isSaved ? 1.5 : 1.0)
+                .rotationEffect(isSaved ? .degrees(360) : .degrees(0))
         })
-        .foregroundStyle(isSaved ? .orange : .secondary)
         // Specify an animation to use
+        .foregroundStyle(isSaved ? .orange : .secondary)
+        .animation(.bouncy(duration: 1.0), value: isSaved)
     }
 }
 
